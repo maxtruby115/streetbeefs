@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Street Beefs">
+<meta name="theme-color" content="#05030a">
 <title>Street Beefs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -117,25 +122,27 @@ h1.end{font-size:clamp(22px,6vw,36px);margin:6px 0 10px;color:#ffd800;text-shado
 .lad.boss::before{content:'?';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;color:#c050ff;text-shadow:3px 3px 0 #000;z-index:1}
 .ladnext{font-size:10px;color:#fff;margin:4px 0}
 .cnum{font-size:64px;color:#ff3d3d;text-shadow:5px 5px 0 #000;margin:4px 0 8px}
+:root{--sr:env(safe-area-inset-right,0px);--sl:env(safe-area-inset-left,0px);--sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px)}
+.overlay{padding:max(10px,var(--st)) max(10px,var(--sr)) max(10px,var(--sb)) max(10px,var(--sl))}
 #touch{display:none}
 body.touch #touch{display:block}
-#zone{position:fixed;left:0;bottom:0;width:46vw;height:75vh;z-index:9;touch-action:none}
+#zone{position:fixed;left:var(--sl);bottom:0;width:46vw;height:75vh;z-index:9;touch-action:none}
 #stick{position:fixed;left:96px;top:calc(100% - 104px);width:120px;height:120px;margin:-60px;pointer-events:none;z-index:10;opacity:.6;background:center/100% 100% no-repeat;image-rendering:pixelated}
 #stick.act{opacity:1}
 #knob{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px;background:center/100% 100% no-repeat;image-rendering:pixelated}
 .tb{position:fixed;z-index:10;width:72px;height:72px;border:0;padding:0;background:transparent 0 0/200% 100% no-repeat;image-rendering:pixelated;touch-action:none;font-size:0;color:transparent;opacity:.92}
 .tb.on{background-position:100% 0}
-#bP{right:160px;bottom:84px}
-#bK{right:86px;bottom:14px}
-#bS{right:86px;bottom:154px}
-#bU{right:160px;bottom:158px;width:62px;height:62px}
-#bG{right:12px;bottom:160px;width:62px;height:62px}
+#bP{right:calc(160px + var(--sr));bottom:calc(84px + var(--sb))}
+#bK{right:calc(86px + var(--sr));bottom:calc(14px + var(--sb))}
+#bS{right:calc(86px + var(--sr));bottom:calc(154px + var(--sb))}
+#bU{right:calc(160px + var(--sr));bottom:calc(158px + var(--sb));width:62px;height:62px}
+#bG{right:calc(12px + var(--sr));bottom:calc(160px + var(--sb));width:62px;height:62px}
 #bU.super{animation:sup .3s steps(2) infinite}
 #bS.super{animation:sup .3s steps(2) infinite}
 @keyframes sup{50%{filter:brightness(1.8)}}
-#bB{right:12px;bottom:86px;width:66px;height:66px}
-#bT{right:16px;bottom:22px;width:52px;height:52px}
-#pauseBtn{position:fixed;left:50%;bottom:8px;transform:translateX(-50%);z-index:11;width:48px;height:36px;border:0;background:center/100% 100% no-repeat;image-rendering:pixelated;cursor:pointer;font-size:0;color:transparent}
+#bB{right:calc(12px + var(--sr));bottom:calc(86px + var(--sb));width:66px;height:66px}
+#bT{right:calc(16px + var(--sr));bottom:calc(22px + var(--sb));width:52px;height:52px}
+#pauseBtn{position:fixed;left:50%;bottom:calc(8px + var(--sb));transform:translateX(-50%);z-index:11;width:48px;height:36px;border:0;background:center/100% 100% no-repeat;image-rendering:pixelated;cursor:pointer;font-size:0;color:transparent}
 #rot{display:none;position:fixed;left:0;right:0;text-align:center;font-size:8px;opacity:.55;line-height:1.6;padding:0 20px}
 body.touch #wrap.portrait ~ #rot{display:block}
 </style>
@@ -2101,7 +2108,11 @@ function resize(){
   document.getElementById('wrap').classList.toggle('portrait',portrait);
   document.getElementById('rot').style.top=(Math.floor(VH*sc)+24)+'px';
 }
-addEventListener('resize',resize);
+function releaseTouch(){for(const k in T){if(k!=='pressed')T[k]=0;}document.querySelectorAll('.tb.on').forEach(b=>b.classList.remove('on'));if(typeof stick!=='undefined'){stick.classList.remove('act');stick.style.left='';stick.style.top='';knob.style.transform='';}sid=null;}
+function relayout(){resize();releaseTouch();}
+addEventListener('resize',relayout);
+addEventListener('orientationchange',()=>{relayout();[100,300,600,1000].forEach(t=>setTimeout(relayout,t));});
+if(window.visualViewport)visualViewport.addEventListener('resize',resize);
 
 function drawDialog(f,text,n){n=Math.min(text.length,n);const words=text.split(' '),lines=[];let ln='';
   for(const w of words){if((ln+' '+w).trim().length>30){lines.push(ln.trim());ln=w;}else ln+=' '+w;}lines.push(ln.trim());
