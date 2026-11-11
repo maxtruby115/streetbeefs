@@ -2063,7 +2063,7 @@ function showEnd(){
   G.state='over';hide('pauseBtn');
   if(G.arc){const w0=G.wins[0]>G.wins[1]?0:1;arcadeAfter(w0);return;}
   if(G.mode==='online'){netShowEnd();return;}
-  $('bAgain').textContent='REMATCH';show('bNewStage');$('bMenu').textContent='MAIN MENU';
+  $('bAgain').textContent='REMATCH';$('bNewStage').textContent='NEW STAGE';show('bNewStage');$('bMenu').textContent='MAIN MENU';
   const [a,b]=G.fighters,w=G.wins[0]>G.wins[1]?0:G.wins[1]>G.wins[0]?1:-1,t=document.getElementById('endT');
   t.textContent=G.vs==='cpu'?(w===0?'YOU WIN':w===1?'YOU LOSE':'DRAW'):(w<0?'DRAW':G.fighters[w].c.name+' WINS');
   document.getElementById('endS').textContent=`${a.c.name} ${G.wins[0]} - ${G.wins[1]} ${b.c.name}`;
@@ -2102,7 +2102,7 @@ function step(){
   a.update(ia,b);b.update(ib,a);
   separate(a,b);leash(a,b);updProj();updParts();
   for(const f of G.fighters)if(f.ghost>f.hp&&f.state!=='hitstun')f.ghost=Math.max(f.hp,f.ghost-.7);
-  if(NETON()){if(G.state==='intros'&&G.netIn.some(q=>q.tap||Object.values(q.pressed).some(v=>v)))G.skipReq=1;}
+  if(NETON()){const q=G.state==='intros'&&G.netIn[G.ii];if(q&&(q.tap||Object.values(q.pressed).some(v=>v)))G.skipReq=1;}
   else{if(G.state==='intros'&&(presses.size||Object.values(T.pressed).some(v=>v)))G.skipReq=1;
   presses.clear();for(const k in T.pressed)T.pressed[k]=0;}
   if(G.state==='intros'){
@@ -2294,7 +2294,7 @@ $('bMoves').onclick=()=>{movesFrom='modes';hide('modes');show('moves');};
 $('bPMoves').onclick=()=>{movesFrom='pause';hide('pause');show('moves');};
 $('bMovesBack').onclick=()=>{hide('moves');show(movesFrom);};
 $('bAgain').onclick=()=>{if(G.mode==='online'){netRematch();return;}startMatch(G.stageIdx);};
-$('bNewStage').onclick=()=>{hide('end');show('stages');};
+$('bNewStage').onclick=()=>{if(G.mode==='online'){netSend({t:'reselect'});netReselect();return;}hide('end');show('stages');};
 $('bMenu').onclick=()=>{if(G.mode==='online')netLeave();toMenu();};$('bQuit').onclick=()=>{if(G.mode==='online')netLeave();toMenu();};
 $('bResume').onclick=togglePause;$('pauseBtn').onclick=togglePause;
 $('bMute').onclick=e=>{muted=!muted;e.target.textContent='SFX: '+(muted?'OFF':'ON');};
@@ -2482,11 +2482,15 @@ function netMsg(m){if(!m||!m.t)return;
     case 'start':if(NET.role==='guest')netBegin(m);break;
     case 'snap':if(NET.role==='guest'){NET.snapPend=m;if(NET.f>m.f)netCheckSnap();}break;
     case 'rematch':NET.remRematch=true;netRematchCheck();break;
+    case 'reselect':netReselect('YOUR OPPONENT WANTS NEW PICKS');break;
     case 'full':netStatus('THAT ROOM IS ALREADY FULL.');netClose();break;
     case 'leave':netLost();break;}}
 function netShowEnd(){NET.active=false;const [a,b]=G.fighters,w=G.wins[0]>G.wins[1]?0:G.wins[1]>G.wins[0]?1:-1,me=NET.role==='host'?0:1;
   $('endT').textContent=w<0?'DRAW':w===me?'YOU WIN':'YOU LOSE';$('endS').textContent=`${a.c.name} ${G.wins[0]} - ${G.wins[1]} ${b.c.name}`;
-  $('bAgain').textContent='REMATCH';hide('bNewStage');$('bMenu').textContent='LEAVE';show('end');}
+  $('bAgain').textContent='REMATCH';$('bNewStage').textContent='NEW PICKS';show('bNewStage');$('bMenu').textContent='LEAVE';show('end');}
+function netReselect(msg){NET.active=false;NET.myPick=null;NET.remPick=null;NET.myRematch=false;NET.remRematch=false;stopVoice();
+  G.state='menu';G.proj=[];G.freeze=null;G.banner=null;['end','pause','stages','fcard','netwait'].forEach(hide);hide('pauseBtn');makeFighters();playMusic(MUSIC.menu);show('menu');
+  $('selTitle').textContent=msg||'PLAYER SELECT';setTimeout(()=>{$('selTitle').textContent='PLAYER SELECT';},2500);}
 function netRematch(){NET.myRematch=true;netSend({t:'rematch'});$('endS').textContent='WAITING FOR YOUR OPPONENT...';netRematchCheck();}
 function netRematchCheck(){if(NET.myRematch&&NET.remRematch&&NET.role==='host'){NET.myRematch=NET.remRematch=false;netHostStart(G.stageIdx);}
   else if(NET.remRematch&&!NET.myRematch&&!$('end').classList.contains('hidden'))$('endS').textContent='YOUR OPPONENT WANTS A REMATCH!';}
