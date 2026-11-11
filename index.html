@@ -2480,7 +2480,7 @@ function drawVS(){
   nm(a,10-slide,'left');nm(b,374+slide,'right');
   if(G.st>20)ptext(ctx,'VS',192,62,32,G.frame%8<4?'#ffffff':'#ffd800','center','#000000',G.st<26?2:1);
   rr(ctx,0,GY-CAMY+2,VW,VH,'rgba(0,0,0,.35)');
-  ctx.save();ctx.translate(-48,-CAMY);a.draw();b.draw();ctx.restore();
+  ctx.save();ctx.translate(-Math.round(((a.x+b.x)/2*S-VW/2)/2)*2,-CAMY);a.draw();b.draw();ctx.restore();
   ptext(ctx,'STAGE: '+G.stage.name,192,104,8,'#ffffff','center');
 }
 function drawHUD(){
