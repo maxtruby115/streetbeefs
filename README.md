@@ -1,4 +1,4 @@
-# Street Beefs
+# Beef Fighter
 
 A retro 90s pixel-art fighting game that runs in the browser. Made for phones (landscape) and works with a keyboard too.
 
