@@ -2025,10 +2025,11 @@ const STAGES=[
   dband(b,0,0,L,150,['#1a1038','#2a1448','#40185a','#5a1e66','#7a2668','#9a3466','#c04a5e','#e06a50','#f08a48','#f8aa50','#fcc860']);
   for(let i=0;i<60;i++)rr(b,rnd()*L|0,rnd()*50|0,1,1,rnd()<.4?'#ffffff':'#c8b8f0');
   // big sun
-  for(let r=34;r>0;r-=4)ell(b,L*.62|0,128,r,r,['#ffe08a','#ffd070','#ffc060','#ffb050','#ffa040'][(r/4|0)%5]);
-  for(let y=110;y<146;y+=5)rr(b,(L*.62|0)-36,y,72,1+(y-110)/10|0,'#f08a48');
+  b.globalAlpha=.25;ell(b,L*.68|0,104,30,24,'#ffb050');b.globalAlpha=1;
+  for(let r=18;r>0;r-=3)ell(b,L*.68|0,106,r,r,['#ffe08a','#ffd070','#ffc060','#ffb050','#ffa040','#ff9a3a'][(r/3|0)%6]);
+  for(let y=98;y<124;y+=4)rr(b,(L*.68|0)-20,y,40,1+(y-98)/10|0,'#f08a48');
   // distant snowy volcano (barely moves)
-  const mx=L*.42|0;
+  const mx=L*.42|0;b.save();b.translate(mx,140);b.scale(.72,.72);b.translate(-mx,-160);
   poly(b,[{x:mx-330,y:160},{x:mx-44,y:38},{x:mx+44,y:38},{x:mx+330,y:160}],'#4a3468');
   poly(b,[{x:mx-330,y:160},{x:mx-44,y:38},{x:mx-20,y:38},{x:mx-200,y:160}],'#3a2858');
   poly(b,[{x:mx+20,y:38},{x:mx+44,y:38},{x:mx+330,y:160},{x:mx+230,y:160}],'#5a4078');
@@ -2036,7 +2037,7 @@ const STAGES=[
   poly(b,[{x:mx-44,y:38},{x:mx+44,y:38},{x:mx+92,y:62},{x:mx+76,y:66},{x:mx+66,y:58},{x:mx+50,y:74},{x:mx+36,y:62},{x:mx+24,y:80},{x:mx+10,y:64},{x:mx-4,y:84},{x:mx-16,y:66},{x:mx-30,y:78},{x:mx-44,y:62},{x:mx-60,y:72},{x:mx-74,y:60},{x:mx-92,y:62}],'#f4f0fa');
   poly(b,[{x:mx-44,y:38},{x:mx-20,y:38},{x:mx-40,y:56},{x:mx-60,y:72},{x:mx-74,y:60},{x:mx-92,y:62}],'#c8c0e0');
   for(const [x,y,h] of [[mx+8,64,12],[mx-10,66,14],[mx+30,62,10],[mx+52,70,8],[mx-36,66,10]])pline(b,x,y,x+(x>mx?6:-6),y+h,1,'#d8d0ec');
-  rr(b,mx-44,38,88,2,'#ffffff');
+  rr(b,mx-44,38,88,2,'#ffffff');b.restore();
   // haze band
   b.globalAlpha=.25;rr(b,0,128,L,32,'#f8a860');b.globalAlpha=1;
   // roof layer (pre-rendered, drawn over the moving scenery)
@@ -2060,7 +2061,7 @@ const STAGES=[
   // tokyo-style skyline strip (scrolls behind)
   const CW2=900,C=document.createElement('canvas');C.width=CW2;C.height=LH;const c=C.getContext('2d');st.city=C;st.cw=CW2;st.blink=[];
   const win=(x,y,w,h,col)=>{for(let yy=(y+4)&~1;yy<y+h-3;yy+=6)for(let xx=(x+2)&~1;xx<x+w-3;xx+=4)if(rnd()<.5)rr(c,xx,yy,2,2,rnd()<.15?'#7ae8ff':rnd()<.2?'#ff8ac8':col);};
-  let x=0;while(x<CW2){const w=14+(rnd()*26|0),h=24+(rnd()*52|0),y=168-h,tone=['#241838','#2a1c42','#1e1430','#30204a'][rnd()*4|0];
+  let x=0;while(x<CW2){const w=14+(rnd()*26|0),h=20+(rnd()*40|0),y=168-h,tone=['#241838','#2a1c42','#1e1430','#30204a'][rnd()*4|0];
     rr(c,x,y,w,h,tone);rr(c,x,y,1,h,'#3a2a58');win(x,y,w,h,'#ffd88a');
     if(rnd()<.3){rr(c,x+w/2|0,y-10,1,10,'#3a2a58');st.blink.push([x+(w/2|0),y-11]);}
     if(rnd()<.25){rr(c,x+2,y-4,w-4,4,'#1a1028');}
