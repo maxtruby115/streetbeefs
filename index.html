@@ -1835,8 +1835,8 @@ const STAGES=[
   rr(b,0,0,480,8,OL);rr(b,0,1,480,5,'#2a2420');for(let x=0;x<480;x+=40)rr(b,x,1,2,5,'#3a3430');
   // ---- left: pizza counter ----
   // menu board
-  box(b,104,34,100,46,'#141418','#24242a','#0a0a0e');ptext(b,'MENU',154,37,16,'#ffd84a','center','#000000');
-  for(let k=0;k<3;k++){rr(b,112,58+k*7,50+((k*23)%24),3,'#d8d4cc');rr(b,180,58+k*7,16,3,'#7ae87a');}
+  box(b,108,34,92,46,'#141418','#24242a','#0a0a0e');ptext(b,'MENU',154,37,16,'#ffd84a','center','#000000');
+  for(let k=0;k<3;k++){rr(b,116,58+k*7,44+((k*23)%22),3,'#d8d4cc');rr(b,180,58+k*7,14,3,'#7ae87a');}
   // brick oven (dome) behind counter
   ell(b,52,112,44,30,OL);ell(b,52,112,42,28,'#8a3a26');for(let r=0;r<5;r++){for(let a=0;a<12;a++){const an=PI+a/11*PI,x=52+Math.cos(an)*(14+r*6),y=118+Math.sin(an)*(10+r*4.4);rr(b,x|0,y|0,3,2,r%2?'#a84a30':'#6a2a1a');}}
   rr(b,8,118,90,10,'#4a2014');rr(b,8,118,90,2,'#6a3020');
@@ -1877,8 +1877,8 @@ const STAGES=[
   rr(b,0,176,480,2,'#000000a0');
   for(let i=0;i<40;i++)rr(b,rnd()*480|0,178+(rnd()*36|0),2+(rnd()*4|0),1,'#80808060');
   // pendant lamps (static cords)
-  st.lamps=[[150,30],[250,30],[330,30]];for(const [x,y] of st.lamps){rr(b,x,0,1,y,'#0a0a0a');}
-  st.neonP=[244,46];st.neonB=[380,40];
+  st.lamps=[[204,26],[316,26]];for(const [x,y] of st.lamps){rr(b,x,0,1,y,'#0a0a0a');}
+  st.neonP=[250,43];st.neonB=[360,43];st.neonO=[436,43];
 },anim(g,f,st){
   // pendant lamps + light cones
   for(const [x,y] of st.lamps){g.globalAlpha=.10;poly(g,[{x:x-6,y:y+6},{x:x+6,y:y+6},{x:x+46,y:176},{x:x-46,y:176}],'#ffd8a0');g.globalAlpha=1;
@@ -1888,30 +1888,47 @@ const STAGES=[
   g.globalAlpha=.35+fl*.1;ell(g,ox,oy+2,30,18,'#ff7a1a');g.globalAlpha=1;ell(g,ox,oy+1,18,10,'#2a0a04');
   for(let k=0;k<6;k++){const ph=(f*.25+k*1.7),h=4+((Math.sin(ph)+1)*3|0);rr(g,ox-12+k*5,oy+8-h,3,h,k%2?'#ffd84a':'#ff7a1a');}
   // pizza chef behind the counter tossing dough
-  const cx=96,cy=128,T=(f%90),up=T<45?T/45:(90-T)/45,dy=-Math.round(Math.sin(up*PI/2)*46);
-  const tossing=T<45;
-  rr(g,cx-12,cy-32,24,34,OL);rr(g,cx-11,cy-31,22,33,'#f4f4f0');rr(g,cx-11,cy-31,4,33,'#d8d8d4');rr(g,cx-2,cy-24,4,2,'#c8282a');rr(g,cx-2,cy-18,4,2,'#c8282a');
-  rr(g,cx-5,cy-38,10,8,OL);rr(g,cx-4,cy-37,8,7,'#f2c09c');rr(g,cx-2,cy-35,1,1,OL);rr(g,cx+2,cy-35,1,1,OL);rr(g,cx-3,cy-32,6,1,'#5a2a1a');rr(g,cx-3,cy-33,6,1,'#3a1a0a');
-  rr(g,cx-7,cy-42,14,5,OL);rr(g,cx-6,cy-41,12,3,'#ffffff');ell(g,cx,cy-49,9,7,OL);ell(g,cx,cy-49,8,6,'#ffffff');rr(g,cx-6,cy-52,3,4,'#e8e8e4');
-  const hy=cy-34-(tossing?Math.max(0,up*6):0);
-  pline(g,cx-10,cy-28,cx-12,hy,4,OL);pline(g,cx+10,cy-28,cx+12,hy,4,OL);pline(g,cx-10,cy-28,cx-12,hy,2,'#f2c09c');pline(g,cx+10,cy-28,cx+12,hy,2,'#f2c09c');
-  const dw=12+((f>>2)%2),dyy=hy-6+dy;ell(g,cx,dyy,dw+1,3,OL);ell(g,cx,dyy,dw,2,'#f4e4b8');rr(g,cx-dw+3,dyy-1,4,1,'#fff8e0');
-  // neon PIZZA sign
+  {const cx=96,cy=129,p=f%80,held=p<22||p>=58;
+   const lift=p<18?0:p<24?(p-18)/6:p<56?1:p<62?1-(p-56)/6:0,hy=cy-24-Math.round(lift*14);
+   // torso
+   rr(g,cx-15,cy-31,30,32,OL);rr(g,cx-14,cy-30,28,31,'#f4f4f0');rr(g,cx-14,cy-30,6,31,'#d4d4d0');rr(g,cx+10,cy-30,4,31,'#e4e4e0');
+   for(let k=0;k<3;k++){rr(g,cx-6,cy-22+k*7,2,2,OL);rr(g,cx+4,cy-22+k*7,2,2,OL);}
+   poly(g,[{x:cx-7,y:cy-31},{x:cx+7,y:cy-31},{x:cx,y:cy-23}],'#c8282a');rr(g,cx-7,cy-31,14,2,'#e84a4a');
+   // head
+   disc(g,cx,cy-40,9,OL);disc(g,cx,cy-40,8,'#f2c09c');rr(g,cx-8,cy-42,3,6,'#e0a87e');
+   rr(g,cx-9,cy-46,3,7,'#3a2414');rr(g,cx+7,cy-46,3,7,'#3a2414');
+   rr(g,cx-4,cy-43,2,3,OL);rr(g,cx+3,cy-43,2,3,OL);rr(g,cx-6,cy-38,3,2,'#e88a7a');rr(g,cx+4,cy-38,3,2,'#e88a7a');
+   rr(g,cx-1,cy-40,3,3,'#d89878');rr(g,cx-6,cy-36,13,3,OL);rr(g,cx-7,cy-35,3,2,OL);rr(g,cx+5,cy-35,3,2,OL);rr(g,cx-2,cy-33,5,1,'#8a3a2a');
+   // chef hat
+   rr(g,cx-9,cy-51,18,5,OL);rr(g,cx-8,cy-50,16,3,'#ffffff');rr(g,cx-8,cy-48,16,1,'#d8d8d4');
+   for(const [dx,dy] of [[-6,-55],[6,-55],[0,-59]])disc(g,cx+dx,cy+dy,7,OL);
+   for(const [dx,dy] of [[-6,-55],[6,-55],[0,-59]])disc(g,cx+dx,cy+dy,6,'#ffffff');rr(g,cx-10,cy-56,3,3,'#e4e4e0');rr(g,cx-2,cy-63,4,2,'#ffffff');
+   // arms (sleeves white, forearms skin)
+   for(const sd of [-1,1]){const sx=cx+sd*13,sy=cy-27,ex=cx+sd*17,ey=Math.round((sy+hy)/2)+4,hx=cx+sd*9;
+     pline(g,sx,sy,ex,ey,6,OL);pline(g,ex,ey,hx,hy,5,OL);pline(g,sx,sy,ex,ey,4,'#f4f4f0');pline(g,ex,ey,hx,hy,3,'#f2c09c');disc(g,hx,hy,3,OL);disc(g,hx,hy,2,'#f2c09c');}
+   // dough
+   let dy=hy-4;if(!held){const q=(p-22)/36;dy=hy-4-Math.round(Math.sin(q*PI)*44);}
+   const w=held?11+((f>>2)%2):8+Math.round(Math.abs(Math.sin(f*.5))*5);
+   ell(g,cx,dy,w+1,3,OL);ell(g,cx,dy,w,2,'#f4e4b8');rr(g,cx-w+3,dy-1,4,1,'#fff8e0');rr(g,cx+2,dy,3,1,'#e0c890');}
+  // neon signs mounted on the brick (tube glow, no box)
+  const neon=(txt,x,y,on,col,glow,off)=>{if(on){g.globalAlpha=.16;ell(g,x,y+8,txt.length*11+10,18,glow);g.globalAlpha=.4;for(const [ox,oy] of [[-2,0],[2,0],[0,-2],[0,2]])ptext(g,txt,x+ox,y+oy,16,glow,'center',glow);g.globalAlpha=1;}
+    ptext(g,txt,x,y,16,on?col:off,'center',on?glow:'#1a0a0a');};
   const [px,py]=st.neonP,on=(f%300)>8||(f>>1)%2;
-  if(on){g.globalAlpha=.18;ell(g,px,py+8,74,22,'#ff3d81');g.globalAlpha=1;}
-  rr(g,px-62,py-4,124,28,OL);rr(g,px-60,py-2,120,24,'#120810');
-  ptext(g,'PIZZA',px,py+1,16,on?'#ff8ac8':'#4a1a30','center','#000000');
-  // slice icon neon
-  poly(g,[{x:px+64,y:py-2},{x:px+84,y:py-2},{x:px+74,y:py+20}],OL);poly(g,[{x:px+66,y:py},{x:px+82,y:py},{x:px+74,y:py+16}],on?'#ffd84a':'#5a4a1a');rr(g,px+66,py,16,2,on?'#ff8a3a':'#4a2a1a');rr(g,px+71,py+4,2,2,on?'#ff3d3d':'#3a1a1a');
-  // neon BAR sign
+  rr(g,px-44,py-3,1,3,'#2a2a2a');rr(g,px+42,py-3,1,3,'#2a2a2a');
+  neon('PIZZA',px,py,on,'#ffd0ec','#ff3d9a','#4a1a30');
+  {const sx=px+58,sy=py-1;if(on){g.globalAlpha=.12;ell(g,sx+8,sy+9,14,12,'#ffb030');g.globalAlpha=1;}
+   const c1=on?'#ffd84a':'#4a3a14',c2=on?'#ff8a2a':'#3a2410',c3=on?'#ff3d3d':'#3a1414';
+   pline(g,sx,sy,sx+16,sy,2,c2);pline(g,sx,sy,sx+8,sy+18,2,c1);pline(g,sx+16,sy,sx+8,sy+18,2,c1);rr(g,sx+5,sy+4,3,3,c3);rr(g,sx+9,sy+8,3,3,c3);}
   const [bx,by]=st.neonB,b2=(f%410)>14||(f>>2)%2;
-  if(b2){g.globalAlpha=.18;ell(g,bx,by+10,48,16,'#2ad6ff');g.globalAlpha=1;}
-  rr(g,bx-34,by,68,22,OL);ptext(g,'BAR',bx,by+3,16,b2?'#7ae8ff':'#1a3a4a','center',b2?'#2a8aff':'#000000');
+  neon('BAR',bx,by,b2,'#d8f8ff','#2a9aff','#14283a');
+  const op=(f%170)>5||(f>>1)%2;
+  {const ox=st.neonO[0],oy=st.neonO[1];if(op){g.globalAlpha=.14;ell(g,ox,oy+9,44,16,'#ff3d3d');g.globalAlpha=1;}
+   const tc=op?'#ff5a5a':'#3a1414';rr(g,ox-38,oy-3,76,2,tc);rr(g,ox-38,oy+19,76,2,tc);rr(g,ox-39,oy-2,2,22,tc);rr(g,ox+37,oy-2,2,22,tc);
+   neon('OPEN',ox,oy,op,'#fff0f0','#ff2a2a','#3a1414');}
   // jukebox lights cycling
   const [jx,jy]=st.juke;for(let k=0;k<8;k++){const an=PI+k/7*PI,c=['#ff3d81','#ffd84a','#2ad6ff','#7aff5a'][(k+(f>>3))%4];rr(g,jx+Math.cos(an)*22-1|0,jy+Math.sin(an)*9-1|0,3,3,c);}
   g.globalAlpha=.15+.08*Math.sin(f*.1);ell(g,jx,jy+50,30,40,'#c050ff');g.globalAlpha=1;
-  // OPEN sign
-  const op=(f%170)>5||(f>>1)%2;rr(g,452,36,26,22,OL);ptext(g,'OP',465,39,16,op?'#ff3d3d':'#3a1010','center','#000000');
+
 }}
 /* ---------------- SUBWAY ---------------- */
 ,{name:'SUBWAY',build(b,st){
