@@ -1942,11 +1942,18 @@ function stickMove(e){
   if(m>R){scx+=dx*(1-R/m)*.5;scy+=dy*(1-R/m)*.5;dx*=R/m;dy*=R/m;stick.style.left=scx+'px';stick.style.top=scy+'px';}
   knob.style.transform=`translate(${dx}px,${dy}px)`;
 }
-zone.addEventListener('pointerdown',e=>{e.preventDefault();initAudio();if(sid!==null)return;sid=e.pointerId;scx=e.clientX;scy=e.clientY;
+zone.addEventListener('pointerdown',e=>{e.preventDefault();initAudio();if(sid!==null&&sid!==e.pointerId&&LIVE.has(sid))return;sid=e.pointerId;scx=e.clientX;scy=e.clientY;
   stick.style.left=scx+'px';stick.style.top=scy+'px';stick.classList.add('act');try{zone.setPointerCapture(sid);}catch(_){}stickMove(e);});
 zone.addEventListener('pointermove',e=>{if(e.pointerId===sid)stickMove(e);});
 const stickEnd=e=>{if(e.pointerId!==sid)return;sid=null;T.left=T.right=T.up=T.down=0;knob.style.transform='';stick.classList.remove('act');stick.style.left='';stick.style.top='';};
-zone.addEventListener('pointerup',stickEnd);zone.addEventListener('pointercancel',stickEnd);
+zone.addEventListener('pointerup',stickEnd);zone.addEventListener('pointercancel',stickEnd);zone.addEventListener('lostpointercapture',stickEnd);
+addEventListener('pointerup',stickEnd,true);addEventListener('pointercancel',stickEnd,true);
+const LIVE=new Set();
+addEventListener('pointerdown',e=>LIVE.add(e.pointerId),true);
+['pointerup','pointercancel'].forEach(t=>addEventListener(t,e=>LIVE.delete(e.pointerId),true));
+const allUp=e=>{if(e.touches.length===0){LIVE.clear();releaseTouch();}};
+addEventListener('touchend',allUp,{passive:true,capture:true});addEventListener('touchcancel',allUp,{passive:true,capture:true});
+addEventListener('blur',()=>releaseTouch());document.addEventListener('visibilitychange',()=>{if(document.hidden)releaseTouch();});
 document.querySelectorAll('.tb').forEach(b=>{
   const a=b.dataset.a,up=()=>{T[a]=0;b.classList.remove('on');};
   b.addEventListener('pointerdown',e=>{e.preventDefault();initAudio();T[a]=1;if(a in T.pressed)T.pressed[a]=1;b.classList.add('on');try{b.setPointerCapture(e.pointerId);}catch(_){}});
