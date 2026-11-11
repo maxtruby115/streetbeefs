@@ -10,8 +10,7 @@
 <meta name="theme-color" content="#05030a">
 <title>Street Beefs</title>
 <script src="lib/peerjs.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>@font-face{font-family:"Press Start 2P";src:url(fonts/press-start-2p.woff2) format("woff2");font-display:swap}@font-face{font-family:"Bangers";src:url(fonts/bangers.woff2) format("woff2");font-display:swap}</style>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#05030a;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;font-family:'Press Start 2P',monospace;color:#fff}
@@ -80,24 +79,40 @@ h1.end{font-size:clamp(22px,6vw,36px);margin:6px 0 10px;color:#ffd800;text-shado
 @media (max-width:600px){.fc{grid-template-columns:1fr}.fcl{display:flex;justify-content:center}#fcImg{width:150px}}
 @media (max-height:540px) and (orientation:landscape){#fcImg{width:140px}.fc{gap:12px}}
 /* ---- SF style menus ---- */
-.sfbg{background:repeating-linear-gradient(to bottom,rgba(0,0,0,.3) 0 2px,transparent 2px 4px),radial-gradient(ellipse at 50% 40%,rgba(90,20,40,.55),rgba(6,2,16,.95) 70%),#05030a}
+.sfbg{isolation:isolate;overflow:hidden;background:repeating-linear-gradient(to bottom,rgba(0,0,0,.28) 0 2px,transparent 2px 4px),radial-gradient(ellipse at 50% 42%,rgba(40,8,30,.08),rgba(30,4,20,.45) 45%,rgba(6,2,14,.9) 85%)}
+.sfbg::before{content:'';position:absolute;left:50%;top:42%;width:240vmax;height:240vmax;margin:-120vmax 0 0 -120vmax;z-index:-1;pointer-events:none;
+  background:repeating-conic-gradient(rgba(255,70,40,.16) 0 5deg,rgba(255,170,40,.04) 5deg 10deg,transparent 10deg 20deg);animation:rays 80s linear infinite}
+.sfbg::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(to top,rgba(208,24,47,.35),transparent 30%),linear-gradient(to bottom,rgba(10,4,30,.6),transparent 22%)}
+@keyframes rays{to{transform:rotate(360deg)}}
+#title .tscreen #logo{animation:logoIn .7s cubic-bezier(.2,1.6,.4,1) both,logoBob 3.2s ease-in-out .7s infinite}
+@keyframes logoIn{0%{transform:scale(2.4) rotate(-8deg);opacity:0}100%{transform:none;opacity:1}}
+@keyframes logoBob{50%{transform:translateY(-4px) rotate(-.6deg)}}
+#lineup{filter:drop-shadow(0 6px 0 rgba(0,0,0,.6))}
 .tscreen,.mscreen{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:min(10px,2vh);width:100%;height:100%;cursor:pointer}
-.tscreen #logo{width:auto;height:min(36vh,250px);max-width:86vw;filter:drop-shadow(0 0 18px rgba(255,90,30,.45))}
-#lineup{height:min(30vh,220px);width:auto;max-width:94vw;image-rendering:pixelated}
-.press{font-size:clamp(12px,2.6vw,18px);color:#ffd800;text-shadow:3px 3px 0 #000;animation:blink .9s steps(2) infinite;margin-top:4px}
+.tscreen #logo{width:auto;height:min(44vh,300px);max-width:86vw;filter:drop-shadow(0 0 18px rgba(255,90,30,.45))}
+#lineup{height:min(28vh,200px);width:auto;max-width:94vw;image-rendering:pixelated}
+.press{font-family:Bangers,Impact,sans-serif;letter-spacing:3px;font-size:clamp(22px,5vh,34px);color:#fff;-webkit-text-stroke:1.5px #000;text-shadow:3px 3px 0 #d0182f,5px 5px 0 #000;animation:blink .9s steps(2) infinite;margin-top:4px}
 .copy{font-size:8px;color:#8a7ab8;letter-spacing:1px}
 .mscreen{cursor:default}
-#logoSm{height:min(26vh,150px);width:auto;image-rendering:pixelated}
+#logoSm{height:min(30vh,170px);width:auto;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.5))}
+.mscreen{flex-direction:row;gap:min(40px,4vw)}.mcol{display:flex;flex-direction:column;align-items:center;gap:min(10px,2vh)}
+.feat{display:flex;flex-direction:column;align-items:center;gap:6px}
+.feat img{height:min(62vh,300px);aspect-ratio:100/112;image-rendering:pixelated;box-shadow:0 0 0 3px #000,0 0 0 6px #ffd23a,8px 8px 0 6px rgba(0,0,0,.6);transform:rotate(2deg);animation:featIn .35s cubic-bezier(.2,1.5,.4,1)}
+#featName{font-family:Bangers,Impact,sans-serif;font-size:clamp(20px,4.5vh,34px);letter-spacing:2px;color:#ffd23a;-webkit-text-stroke:1.5px #000;text-shadow:3px 3px 0 #000;transform:rotate(-2deg)}
+@keyframes featIn{0%{transform:translateX(40px) rotate(8deg);opacity:0}100%{transform:rotate(2deg);opacity:1}}
+@media (max-width:600px){.feat{display:none}}
 .mlist{display:flex;flex-direction:column;gap:8px;width:min(420px,92vw)}
-.mode{font-family:'Press Start 2P',monospace;cursor:pointer;text-align:left;padding:12px 14px 12px 34px;border:0;color:#fff;background:linear-gradient(90deg,#d0182f,#7a0a2a 70%,rgba(60,10,30,.6));box-shadow:inset 0 0 0 3px #000,inset 0 0 0 5px #ffd800,4px 4px 0 #000;position:relative;display:flex;flex-direction:column;gap:6px}
+.mode{font-family:'Press Start 2P',monospace;cursor:pointer;text-align:left;padding:12px 16px 12px 38px;border:0;color:#fff;background:linear-gradient(100deg,#ffd23a 0 10px,#000 10px 13px,#e8202f 13px,#9a0a2a 65%,rgba(70,8,30,.75));box-shadow:inset 0 0 0 3px #000,5px 5px 0 rgba(0,0,0,.75);position:relative;display:flex;flex-direction:column;gap:6px;transform:skewX(-12deg);transition:transform .08s,filter .08s}
+.mode>*{transform:skewX(12deg)}.mode:hover,.mode:focus-visible{transform:skewX(-12deg) translateX(8px);filter:brightness(1.15)}.mode:active{transform:skewX(-12deg) translateX(4px) scale(.98)}
+.mlist .mode:nth-child(1){margin-left:0}.mlist .mode:nth-child(2){margin-left:10px}.mlist .mode:nth-child(3){margin-left:20px}.mlist .mode:nth-child(4){margin-left:30px}.mlist .mode:nth-child(5){margin-left:40px}
 .mode b{font-size:clamp(12px,2.4vw,16px);color:#ffd800;text-shadow:2px 2px 0 #000;font-weight:normal}
 .mode span{font-size:7px;color:#ffd8e0}
-.mode.small{padding:9px 14px 9px 34px;background:linear-gradient(90deg,#3a2a70,#1a1240)}.mode.small b{font-size:11px;color:#fff}
-.mode:hover::before,.mode:focus::before,.mode:active::before{content:'\25B6';position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#fff;font-size:10px;animation:blink .5s steps(2) infinite}
+.mode.small{padding:9px 16px 9px 38px;background:linear-gradient(100deg,#7ae8ff 0 10px,#000 10px 13px,#3a2a90,#1a1250 70%,rgba(20,10,60,.75))}.mode.small b{font-size:11px;color:#fff}
+.mode:hover::before,.mode:focus::before,.mode:active::before{content:'\25B6';position:absolute;left:18px;top:50%;transform:translateY(-50%) skewX(12deg);color:#ffd23a;font-size:10px;text-shadow:2px 2px 0 #000;animation:blink .5s steps(2) infinite}
 @media (max-height:540px){.mode{padding:8px 12px 8px 30px}.mode span{display:none}.mlist{gap:6px}}
 .sel{width:min(900px,100%);height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
 .seltop{display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px}
-.seltitle{font-size:clamp(14px,3vw,22px);color:#ffd800;text-shadow:3px 3px 0 #d0182f,5px 5px 0 #000;text-align:center;flex:1}
+.seltitle{font-family:Bangers,Impact,sans-serif;letter-spacing:3px;font-size:clamp(24px,6vh,40px);color:#ffd23a;-webkit-text-stroke:1.5px #000;text-shadow:3px 3px 0 #d0182f,5px 5px 0 #000;text-align:center;flex:1;transform:skewX(-8deg)}
 .selmode{font-size:8px;color:#2ad6ff;min-width:90px;text-align:right}
 .back{font-family:'Press Start 2P',monospace;font-size:8px;padding:8px 8px;background:#2a1a50;color:#fff;border:0;box-shadow:inset 0 0 0 2px #000,inset 0 0 0 4px #5a3fa0;cursor:pointer;min-width:90px}
 #pick{display:grid;grid-template-columns:repeat(3,auto);gap:6px;justify-content:center}
@@ -179,6 +194,7 @@ body.touch #wrap.portrait ~ #rot{display:block}
 
 <div id="modes" class="overlay sfbg hidden">
   <div class="mscreen">
+    <div class="mcol">
     <img id="logoSm" alt="Street Beefs">
     <div class="mlist">
       <button class="mode" id="mArcade"><b>ARCADE</b><span>BEAT EVERYONE. THEN BEAT YOURSELF.</span></button>
@@ -187,6 +203,8 @@ body.touch #wrap.portrait ~ #rot{display:block}
       <button class="mode" id="m2p"><b>VERSUS PLAYER</b><span>2 PLAYERS, ONE KEYBOARD</span></button>
       <button class="mode small" id="bMoves"><b>MOVE LIST</b></button>
     </div>
+    </div>
+    <div class="feat"><img id="featImg" alt=""><div id="featName">DEATH SENTENCE</div></div>
   </div>
 </div>
 
@@ -559,7 +577,7 @@ function breathe(p,t){const s=Math.sin(t*.08);return {...p,lean:p.lean+s*.025,bf
 function walkPose(w,lean=.14){const s=Math.sin(w),c=Math.cos(w),p=POSES.idle;
   return {lean,bt:.15-.45*s,bs:-.35-.4*Math.max(0,c),ft:.15+.45*s,fs:-.35-.4*Math.max(0,-c),bu:p.bu-.15*s,bf:p.bf,fu:p.fu+.15*s,ff:p.ff};}
 
-const G={cam:48,state:'menu',vs:'cpu',diff:1,pick:'ds',opp:'random',stageIdx:0,stage:null,round:1,wins:[0,0],timer:60,tick:0,st:0,hitstop:0,shake:0,slow:0,proj:[],parts:[],banner:null,paused:false,fighters:[],cpu:null,frame:0,freeze:null};
+const G={cam:48,state:'menu',vs:'cpu',diff:1,pick:'ds',opp:'random',stageIdx:Math.floor(Math.random()*7),stage:null,round:1,wins:[0,0],timer:60,tick:0,st:0,hitstop:0,shake:0,slow:0,proj:[],parts:[],banner:null,paused:false,fighters:[],cpu:null,frame:0,freeze:null};
 
 function isThreat(me,opp){
   if((opp.state==='attack'&&!(opp.atk&&opp.atk.buff))&&Math.abs(opp.x-me.x)<240)return true;
@@ -2159,7 +2177,7 @@ function drawDialog(f,text,n){n=Math.min(text.length,n);const words=text.split('
 function render(){
   G.frame++;musicTick();
   const st=G.stage,af=G.freeze?G.frame-1:G.frame,[A,B]=G.fighters;
-  const tgt=G.state==='menu'||G.state==='vs'?48:G.state==='intros'&&G.fighters[G.ii]?clamp(G.fighters[G.ii].x*S-VW/2,0,LW-VW):clamp((A.x+B.x)/2*S-VW/2,0,LW-VW);
+  const tgt=G.state==='menu'?48+Math.sin(G.frame*.004)*44:G.state==='vs'?48:G.state==='intros'&&G.fighters[G.ii]?clamp(G.fighters[G.ii].x*S-VW/2,0,LW-VW):clamp((A.x+B.x)/2*S-VW/2,0,LW-VW);
   G.cam+=(tgt-G.cam)*.12;if(Math.abs(tgt-G.cam)<.3)G.cam=tgt;
   if(G.state==='vs'){drawVS();return;}
   let sx=0,sy=0;if(G.shake>0){sx=Math.round((Math.random()-.5)*G.shake*.25)*2;sy=Math.round((Math.random()-.5)*G.shake*.25)*2;}
@@ -2171,7 +2189,7 @@ function render(){
   if(G.freeze){ctx.fillStyle='rgba(0,0,10,.62)';ctx.fillRect(cx-8,cy-8,VW+16,VH+16);
     const f=G.freeze.f,fx=f.x*S,fy=(f.y-100)*S;for(let i=0;i<16;i++){const an=i*PI/8+G.frame*.05;pline(ctx,fx+Math.cos(an)*34,fy+Math.sin(an)*34,fx+Math.cos(an)*260,fy+Math.sin(an)*260,1,i%2?f.c.acc:'#ffffff');}}
   const pr=f=>f.state==='riding'||f.state==='stomping'||f.state==='grabbing'?2:(f.state==='attack'||f.state==='throwing')?1:0;const fs=[...G.fighters].sort((a,b)=>pr(a)-pr(b));
-  fs.forEach(f=>f.draw());
+  if(G.state!=='menu')fs.forEach(f=>f.draw());
   if(NETON()&&(G.state==='intro'||G.state==='intros')&&(G.frame>>3)%4){const f=G.fighters[NET.role==='host'?0:1];ptext(ctx,'YOU',Math.round(f.x*S),Math.round((f.y-215*f.c.body.hs)*S),8,'#ffd800','center');}
   ctx.restore();
   la.clearRect(vx,0,VW,VH);{const keep=ctx;ctx=la;drawProj();drawParts();if(st.fg)st.fg(la,af,st);ctx=keep;}
@@ -2269,6 +2287,8 @@ let titleDone=false;
 function leaveTitle(){if(titleDone)return;titleDone=true;initAudio();sfx('bell');goModes();}
 $('title').addEventListener('click',leaveTitle);
 addEventListener('keydown',e=>{if(!$('title').classList.contains('hidden')&&(e.code==='Enter'||e.code==='Space'))leaveTitle();});
+{let fi=0;const FK=['ds','ww','bm','md','cb','pp'];const cyc=()=>{if($('modes').classList.contains('hidden')||!PORTS[FK[fi]])return;const k=FK[fi];const im=$('featImg');im.src=PORTS[k];im.style.animation='none';void im.offsetWidth;im.style.animation='';$('featName').textContent=FIGHTERS[k].name;$('featName').style.color=FIGHTERS[k].acc;fi=(fi+1)%FK.length;};setInterval(cyc,2600);
+  const _gm=goModes;goModes=function(){_gm();cyc();};}
 $('mArcade').onclick=()=>goSelect('arcade');$('mCpu').onclick=()=>goSelect('cpu');$('m2p').onclick=()=>goSelect('2p');
 $('selBack').onclick=()=>{if(G.mode==='online')netLeave();goModes();};
 /* ---- arcade ---- */
@@ -2328,6 +2348,7 @@ function makeUI(){
   set('knob',pixImg(18,18,g=>{disc(g,8.5,9.5,8,'#000000');disc(g,8.5,8.5,8,OL);disc(g,8.5,8.5,7,'#1a8ab0');disc(g,8,8,6,'#2ad6ff');disc(g,6,6,2,'#c8f6ff');rr(g,5,4,2,1,'#ffffff');}));
   set('pauseBtn',pixImg(16,12,g=>{rr(g,0,0,16,12,OL);rr(g,1,1,14,10,'#4b3d72');rr(g,1,1,14,1,'#7a6aa8');rr(g,1,10,14,1,'#2a1a50');rr(g,5,3,2,6,'#ffffff');rr(g,9,3,2,6,'#ffffff');}));
   {const L=makeLogo();$('logo').src=L;$('logoSm').src=L;}
+  if(document.fonts&&document.fonts.load)document.fonts.load('100px Bangers').then(()=>{const L=makeLogo();$('logo').src=L;$('logoSm').src=L;}).catch(()=>{});
   setTimeout(()=>{try{$('lineup').src=lineupImg();}catch(e){}},0);
   for(const k in FIGHTERS)PORTS[k]=portrait(k);
   document.querySelectorAll('img[data-por]').forEach(im=>{im.src=PORTS[im.dataset.por];});
@@ -2342,18 +2363,24 @@ function lineupImg(){
   g.clearRect(0,0,CW,CH);g.imageSmoothingEnabled=false;g.drawImage(h2,0,0,CW,CH);return c.toDataURL();
 }
 function makeLogo(){
-  const W2=104,H2=46,c=document.createElement('canvas');c.width=W2;c.height=H2;const g=c.getContext('2d');
-  g.font='16px "Press Start 2P", monospace';g.textBaseline='top';g.textAlign='center';g.fillStyle='#ffffff';
-  g.fillText('STREET',W2/2,4);g.fillText('BEEFS',W2/2,24);
-  const id=g.getImageData(0,0,W2,H2),d=id.data,m=new Uint8Array(W2*H2);
-  for(let i=0;i<W2*H2;i++)m[i]=d[i*4+3]>110?1:0;
-  const A=['#fff6b0','#ffe14d','#ffc23d','#ff9a2a','#ff6a1a','#e8401a'],B=['#c8f6ff','#7ae8ff','#2ad6ff','#1aa8e8','#1a78d0','#1a4ab0'];
-  const o=g.createImageData(W2,H2),q=o.data,put=(i,col)=>{const v=hex(col);q[i*4]=v[0];q[i*4+1]=v[1];q[i*4+2]=v[2];q[i*4+3]=255;};
-  for(let y=0;y<H2;y++)for(let x=0;x<W2;x++){const i=y*W2+x;
-    if(m[i]){const top=y<22,yy=top?y-4:y-24;put(i,(top?A:B)[clamp(Math.floor(yy/16*6),0,5)]);}
-    else{let n=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const xx=x+dx,y2=y+dy;if(xx>=0&&xx<W2&&y2>=0&&y2<H2&&m[y2*W2+xx])n=1;}
-      if(n)put(i,'#000000');else if(y>1&&x>1&&m[(y-2)*W2+x-2])put(i,y<22?'#a0102a':'#1a1a6a');}}
-  g.putImageData(o,0,0);return c.toDataURL();
+  const SC=2.5,CW=760,CH=360,c=document.createElement('canvas');c.width=CW;c.height=CH;const g=c.getContext('2d');
+  const FONT=f=>f+'px Bangers, Impact, "Arial Black", sans-serif';
+  // explosion burst
+  const burst=(cx,cy,r1,r2,n,rot,col)=>{g.beginPath();for(let i=0;i<n*2;i++){const a=rot+i/(n*2)*Math.PI*2,r=i%2?r2*(.82+((i*37)%7)/30):r1;g.lineTo(cx+Math.cos(a)*r*1.55,cy+Math.sin(a)*r);}g.closePath();g.fillStyle=col;g.fill();};
+  burst(380,180,178,104,14,.2,'#000000');burst(380,180,166,94,14,.2,'#d0182f');burst(380,180,128,74,14,.45,'#ff6a1a');burst(380,180,86,52,12,.1,'#ffd23a');
+  const word=(txt,size,cx,cy,rot,grad,ext,hi)=>{g.save();g.translate(cx,cy);g.rotate(rot);g.transform(1,0,-.12,1,0,0);g.font=FONT(size);g.textAlign='center';g.textBaseline='middle';g.lineJoin='round';
+    if('letterSpacing' in g)g.letterSpacing=Math.round(size*.04)+'px';g.lineWidth=size*.2;g.strokeStyle='#000';g.strokeText(txt,ext.n*1.6,ext.n*2.2);for(let k=ext.n;k>0;k--){g.fillStyle=ext.c;g.strokeStyle=ext.c;g.lineWidth=size*.14;g.strokeText(txt,k*1.6,k*2.2);g.fillText(txt,k*1.6,k*2.2);}
+    g.lineWidth=size*.17;g.strokeStyle='#000';g.strokeText(txt,0,0);
+    const gr=g.createLinearGradient(0,-size*.42,0,size*.42);grad.forEach((cl,i)=>gr.addColorStop(i/(grad.length-1),cl));g.fillStyle=gr;g.fillText(txt,0,0);
+    g.save();g.beginPath();g.rect(-CW,-size*.5,CW*2,size*.36);g.clip();g.fillStyle='rgba(255,255,255,.38)';g.fillText(txt,0,0);g.restore();
+    g.lineWidth=size*.035;g.strokeStyle=hi;g.strokeText(txt,-size*.012,-size*.018);g.restore();};
+  word('STREET',112,372,92,-.06,['#ffffff','#fff3a0','#ffd23a','#ff9a1a'],{n:9,c:'#7a0a14'},'rgba(255,255,255,.55)');
+  word('BEEFS',196,388,236,-.05,['#fff6b0','#ffd23a','#ff8a1a','#e8301a','#a0101a'],{n:12,c:'#5a0610'},'rgba(255,240,200,.6)');
+  // speed streaks
+  g.fillStyle='#ffffff';for(const [x,y,w] of [[40,262,120],[70,282,70],[612,118,110],[648,138,60]]){g.fillRect(x,y,w,6);g.fillStyle='#000';g.fillRect(x,y+6,w,3);g.fillStyle='#ffffff';}
+  const o=document.createElement('canvas');o.width=Math.round(CW/SC);o.height=Math.round(CH/SC);const og=o.getContext('2d');og.imageSmoothingEnabled=true;og.drawImage(c,0,0,o.width,o.height);
+  const id=og.getImageData(0,0,o.width,o.height),d=id.data;for(let i=0;i<d.length;i+=4){d[i+3]=d[i+3]>110?255:0;}og.putImageData(id,0,0);
+  return o.toDataURL();
 }
 function portrait(key){
   const CW=100,CH=112,c=document.createElement('canvas');c.width=CW;c.height=CH;const g=c.getContext('2d');
