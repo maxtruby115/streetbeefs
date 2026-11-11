@@ -1888,6 +1888,7 @@ const STAGES=[
   g.globalAlpha=.35+fl*.1;ell(g,ox,oy+2,30,18,'#ff7a1a');g.globalAlpha=1;ell(g,ox,oy+1,18,10,'#2a0a04');
   for(let k=0;k<6;k++){const ph=(f*.25+k*1.7),h=4+((Math.sin(ph)+1)*3|0);rr(g,ox-12+k*5,oy+8-h,3,h,k%2?'#ffd84a':'#ff7a1a');}
   // pizza chef behind the counter tossing dough
+  g.save();g.translate(96,131);g.scale(.78,.78);g.translate(-96,-131);
   {const cx=96,cy=129,p=f%80,held=p<22||p>=58;
    const lift=p<18?0:p<24?(p-18)/6:p<56?1:p<62?1-(p-56)/6:0,hy=cy-24-Math.round(lift*14);
    // torso
@@ -1910,6 +1911,7 @@ const STAGES=[
    let dy=hy-4;if(!held){const q=(p-22)/36;dy=hy-4-Math.round(Math.sin(q*PI)*44);}
    const w=held?11+((f>>2)%2):8+Math.round(Math.abs(Math.sin(f*.5))*5);
    ell(g,cx,dy,w+1,3,OL);ell(g,cx,dy,w,2,'#f4e4b8');rr(g,cx-w+3,dy-1,4,1,'#fff8e0');rr(g,cx+2,dy,3,1,'#e0c890');}
+  g.restore();
   // neon signs mounted on the brick (tube glow, no box)
   const neon=(txt,x,y,on,col,glow,off)=>{if(on){g.globalAlpha=.16;ell(g,x,y+8,txt.length*11+10,18,glow);g.globalAlpha=.4;for(const [ox,oy] of [[-2,0],[2,0],[0,-2],[0,2]])ptext(g,txt,x+ox,y+oy,16,glow,'center',glow);g.globalAlpha=1;}
     ptext(g,txt,x,y,16,on?col:off,'center',on?glow:'#1a0a0a');};
