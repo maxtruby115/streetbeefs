@@ -2126,7 +2126,7 @@ document.querySelectorAll('.tb').forEach(b=>{
 
 /* ================= audio ================= */
 let ac=null,muted=false;
-const MUSIC={menu:'music/main.mp3','BACKYARD CAGE':'music/cage.mp3','NEON ROOFTOP':'music/menu.mp3','SUNSET DOJO':'music/dojo.mp3','CITY STREETS':'music/docks.mp3','SNOW TEMPLE':'music/winter.mp3','WHEAT FIELD':'music/field.mp3','BAMBOO FOREST':'music/bamboo.mp3'};
+const MUSIC={menu:'music/main.mp3','BACKYARD CAGE':'music/cage.mp3','NEON ROOFTOP':'music/menu.mp3','SUNSET DOJO':'music/dojo.mp3','CITY STREETS':'music/docks.mp3','SNOW TEMPLE':'music/winter.mp3','WHEAT FIELD':'music/field.mp3','BAMBOO FOREST':'music/bamboo.mp3','PIZZA JOINT':'music/pizza.mp3','SUBWAY':'music/subway.mp3'};
 const MUS={el:null,src:null,on:true,vol:.55,fade:null};
 function playMusic(src){
   if(MUS.src===src&&MUS.el){if(MUS.on&&MUS.el.paused)MUS.el.play().catch(()=>{});return;}
