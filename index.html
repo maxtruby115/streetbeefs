@@ -2360,7 +2360,6 @@ function portrait(key){
   const keep=ctx;ctx=g;g.save();g.translate(44-Math.round(f.x*S),108-GY);try{f.draw();}catch(e){}g.restore();ctx=keep;
   const h2=document.createElement('canvas');h2.width=CW/2;h2.height=CH/2;crunchLayer(g,0,0,CW,CH,h2.getContext('2d'));
   g.clearRect(0,0,CW,CH);g.imageSmoothingEnabled=false;g.drawImage(h2,0,0,CW,CH);
-  if(key==='pp')ptext(g,'SURPRISE',50,8,8,'#f4f4e8','center','#163a26');
   rr(g,0,0,CW,2,'#ffffff');rr(g,0,CH-2,CW,2,'#000000');
   return c.toDataURL();
 }
