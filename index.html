@@ -2037,7 +2037,6 @@ const STAGES=[
     // equipment on the roof (behind the fight line)
     rr(r,x0+60,176,48,13,OL);rr(r,x0+61,177,46,11,'#b8bcc8');rr(r,x0+61,177,46,2,'#e8ecf4');for(let k=0;k<6;k++)rr(r,x0+65+k*7,180,4,6,'#7a7e8a');
     rr(r,x0+230,180,26,9,OL);rr(r,x0+231,181,24,7,'#a8acb8');rr(r,x0+231,181,24,1,'#e8ecf4');
-    rr(r,x0+290,170,2,19,OL);rr(r,x0+286,170,10,2,OL);
     // roof surface
     rr(r,x0,187,CAR-8,13,OL);dband(r,x0+1,188,CAR-10,12,['#f4f6fa','#dfe3ea','#cdd2dc','#bcc2ce']);
     for(let k=24;k<CAR-10;k+=24){rr(r,x0+k,189,1,10,'#a8aebc');}
@@ -2057,13 +2056,9 @@ const STAGES=[
   // treeline + fences rushing past
   for(let x=0;x<L;x+=2){const wx=x+sp*14,h=Math.round(164-6*Math.abs(Math.sin(wx*.05))-4*Math.abs(Math.sin(wx*.13)));rr(g,x,h,2,190-h,'#1a1430');}
   g.globalAlpha=.5;for(let k=0;k<6;k++){const y=166+k*4;rr(g,0,y,L,1,'#3a2a50');}g.globalAlpha=1;
-  // overhead line masts zipping by
-  const MS=520,off=(sp*46)%MS;
-  for(let x=-off;x<L+60;x+=MS){const px=x|0;rr(g,px-3,26,7,170,OL);rr(g,px-2,26,5,170,'#4a4a58');rr(g,px-1,26,1,170,'#7a7a8a');
-    rr(g,px-3,30,40,4,OL);rr(g,px-2,31,38,2,'#5a5a68');
-    g.globalAlpha=.25;rr(g,px+6,26,26,170,'#2a2436');g.globalAlpha=1;}
-  // wires (continuous)
-  rr(g,0,32,L,1,'#140c1c');rr(g,0,40,L,1,'#140c1c');
+  // low bushes blurring past right behind the train
+  for(let x=0;x<L;x+=2){const wx=x+sp*32,h=Math.round(180-5*Math.abs(Math.sin(wx*.07))-3*Math.abs(Math.sin(wx*.19)));rr(g,x,h,2,190-h,'#120e22');}
+  g.globalAlpha=.35;for(let k=0;k<5;k++){const y=172+k*3,x=L-((f*38+k*131)%(L+200));rr(g,x|0,y,120,1,'#3a2a50');}g.globalAlpha=1;
   // tunnel every ~25s
   const TP=1500,tt=f%TP;
   if(tt>1380){const k=tt-1380;let a=k<10?k/10:k>110?(120-k)/10:1;g.globalAlpha=Math.min(1,a);rr(g,0,0,L,190,'#08060c');g.globalAlpha=1;
