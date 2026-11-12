@@ -141,7 +141,6 @@ body.fontwait .overlay>*{visibility:hidden}
 #dlcRow{display:flex;gap:8px;justify-content:center;margin-bottom:6px}#dlcRow img{height:min(110px,24vh);image-rendering:pixelated;box-shadow:0 0 0 3px #000,0 0 0 5px #ffd800}
 #pick button.locked img{filter:brightness(0) contrast(1)}#pick button.locked span{color:#6a5aa0}
 #pick button.locked::before{content:'DLC';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#ffd800;text-shadow:2px 2px 0 #000;z-index:1}
-#pick{grid-template-columns:repeat(5,auto)!important}
 #touch{display:none}
 body.touch #touch{display:block}
 #zone{position:fixed;left:var(--sl);bottom:0;width:46vw;height:75vh;z-index:9;touch-action:none}
@@ -2712,7 +2711,7 @@ const DLC_PACKS={pack1:{name:'PACK 1',h:4247121491,chars:['vc','gt','mx']}};
 function strHash(t){let h=2166136261;for(const ch of t){h^=ch.charCodeAt(0);h=Math.imul(h,16777619);}return h>>>0;}
 let DLC_OWNED=new Set();try{DLC_OWNED=new Set(JSON.parse(localStorage.getItem('bf_dlc')||'[]'));}catch(e){}
 function dlcOwns(k){const c=FIGHTERS[k];return !c||!c.dlc||DLC_OWNED.has(c.dlc);}
-function applyDlc(){document.querySelectorAll('#pick button').forEach(b=>b.classList.toggle('locked',!dlcOwns(b.dataset.v)));
+function applyDlc(){let n=0;document.querySelectorAll('#pick button').forEach(b=>{const own=dlcOwns(b.dataset.v);b.classList.toggle('hidden',!own);if(own)n++;});$('pick').style.gridTemplateColumns='repeat('+(n<=6?3:5)+',auto)';
   document.querySelectorAll('#opp .dlcopt').forEach(b=>b.classList.toggle('hidden',!dlcOwns(b.dataset.v)));
   const own=[...DLC_OWNED].map(p=>DLC_PACKS[p]&&DLC_PACKS[p].name).filter(Boolean);$('dlcOwned').textContent=own.length?'OWNED: '+own.join(', '):'';}
 let dlcFrom='modes';
