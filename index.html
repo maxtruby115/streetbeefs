@@ -1524,9 +1524,12 @@ function drawCart(g,x,y,f,t){const X=v=>x+v*f,b=Math.sin(t*.9)>0?1:0;y-=b;
 }
 function drawRoots(){for(const f of G.fighters){const R0=f.root;if(!R0||f.state!=='rooted')continue;const x=f.x*S,y=GY,gr=Math.min(1,R0.t/24),h=f.c.body.hs*80;
   // trunk behind/around
-  const th=Math.round((40+h)*gr);rr(ctx,x-6,y-th,12,th,OL);rr(ctx,x-5,y-th,10,th,'#6a4a2a');rr(ctx,x-5,y-th,3,th,'#8a6a3a');
-  if(gr>=1){const cy=y-th-10;for(const [dx,dy,r] of [[0,0,22],[-16,6,16],[16,6,16],[0,-12,16]]){disc(ctx,x+dx,cy+dy,r+1,OL);disc(ctx,x+dx,cy+dy,r,'#2a8a2a');}disc(ctx,x-6,cy-6,8,'#5ad83a');
-    for(let k=0;k<5;k++){const lx=x-16+((k*13)%32),ly=cy-6+((k*7)%14);rr(ctx,lx,ly,3,3,'#8aff6a');}}
+  const th=Math.round((60+h)*gr);rr(ctx,x-5,y-th,10,th,OL);rr(ctx,x-4,y-th,8,th,'#5a3a1e');rr(ctx,x-4,y-th,2,th,'#7a5430');for(let yy=y-th+6;yy<y;yy+=9)rr(ctx,x-2,yy,4,1,'#3a2410');
+  {const tiers=Math.min(5,Math.max(0,Math.floor((R0.t-6)/4)));let base=y-th+78;
+   for(let k=0;k<tiers;k++){const w=34-k*6,h=22,yb=base-k*15;poly(ctx,[{x:x-w-1,y:yb+1},{x:x,y:yb-h-2},{x:x+w+1,y:yb+1}],OL);poly(ctx,[{x:x-w,y:yb},{x:x,y:yb-h},{x:x+w,y:yb}],'#1e6a2e');
+     poly(ctx,[{x:x-w,y:yb},{x:x,y:yb-h},{x:x-Math.round(w*.25),y:yb}],'#2e8a3e');rr(ctx,x-w+2,yb-2,w*2-4,2,'#14501e');
+     for(let j=-w+6;j<w-6;j+=8)rr(ctx,x+j,yb-1,2,3,'#0e3a16');}
+   if(tiers>=5){const ty=base-4*15-24;rr(ctx,x-1,ty-3,3,3,'#3aa84a');}}
   // roots wrapping legs and body
   const n=Math.min(5,Math.floor(R0.t/6));for(let k=0;k<n;k++){const yy=y-6-k*Math.round(h/5);pline(ctx,x-14,yy+3,x+14,yy-3,3,OL);pline(ctx,x-13,yy+3,x+13,yy-3,2,'#7a5430');rr(ctx,x+12,yy-5,3,3,'#3a9a2a');}
   for(const dx of [-22,-12,14,24]){pline(ctx,x,y-2,x+dx,y+2,2,'#5a3a1a');}}}
