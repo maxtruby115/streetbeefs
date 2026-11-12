@@ -464,7 +464,7 @@ const FIGHTERS={
   pp:mkF({name:'PAPPAS',acc:'#5ac8ff',vs:'#3a0a0a',st:{spd:3,atk:5,hp:8},style:'pappas',moves:{sp:'ELEMENT OF SURPRISE',ult:'FOURTH WALL'},body:{th:1.02,sh:1.02,to:1.04,ua:1.02,fa:1.02,hs:1.03,hw:28},
     pal:{skin:['#ffe6d4','#f2c4a0','#c98c64','#8a5838'],top:['#ff7a6a','#ee2020','#a81010','#5a0606'],pants:['#5a5a66','#2a2a32','#18181e','#06060a'],sleeve:1,fgl:['#d8f4ff','#8ad8ff','#4aa8e0','#22609a'],
       belt:['#4a4a54','#222228','#121216','#000000'],acc:'#5ac8ff',hair:['#4a3424','#2a1a10','#160c06','#060200'],wrap:['#d8f4ff','#8ad8ff','#4aa8e0','#22609a'],boot:['#4a4a54','#222228','#121216','#000000'],eye:'#3a2a1a'}}),
-  vc:mkF({name:'VIC',dlc:'pack1',acc:'#ff8a3a',vs:'#3a1a08',st:{spd:3,atk:8,hp:6},style:'vic',look:'vic',grabAs:'wolf',moves:{sp:'OOF',ult:'ANDERDINGUS'},body:{th:1.12,sh:1.14,to:1.08,ua:1.08,fa:1.06,hs:1.12,hw:31},
+  vc:mkF({name:'VIC',dlc:'pack1',acc:'#ff8a3a',vs:'#3a1a08',st:{spd:3,atk:8,hp:6},style:'vic',look:'vic',grabAs:'wolf',moves:{sp:'OOF',ult:'ANDERDINGUS'},body:{th:1.12,sh:1.14,to:1.08,ua:1.08,fa:1.06,hs:1.12,hw:27},
     pal:{skin:['#ffe2cc','#f2bf9c','#d09272','#8e5a42'],top:['#ffe2cc','#f2bf9c','#d09272','#8e5a42'],pants:['#7aa8e0','#4a7ac0','#2a5a9a','#163a6a'],legW:1.08,armW:1.12,
       belt:['#a8784a','#7a4e28','#4e3016','#2a1a0a'],acc:'#ff8a3a',hair:['#9a6a3a','#6a4222','#442810','#221406'],wrap:['#ffe2cc','#f2bf9c','#d09272','#8e5a42'],boot:['#6a5a4a','#3a3028','#221c16','#0a0806'],eye:'#3a2a1a',glasses:1}}),
   gt:mkF({name:'GREEN THUMB',dlc:'pack1',acc:'#5ad83a',vs:'#0a2a0a',st:{spd:9,atk:7,hp:2},style:'gthumb',look:'ninja',grabAs:'wolf',moves:{sp:'SHOVEL',ult:'ROOTED'},body:{th:.97,sh:.97,to:.95,ua:.95,fa:.95,hs:.94,hw:23},
@@ -1241,7 +1241,7 @@ function armDraw(g,S0,E,Hn,pal,back,fr,ld){
   else fist(g,Hn,fr,sk);
 }
 function torsoDraw(g,H,N,u,pf,pal,style,ld){
-  const ramp=style==='wolf'||style==='were'||style==='boxer'||style==='lean'||style==='vic'?pal.skin:pal.top,girl=style==='girl',T=[0,.3,.72,1],R=style==='vic'?[10.6,10.8,11.4,10]:style==='maxw'?[7.6,6.6,10.4,9.6]:style==='ninja'?[7.4,6.4,10.2,9.4]:style==='girl'?[8.6,6,8.8,8]:style==='lean'?[7,6,9.4,9]:style==='boxer'?[17,20,19,15]:style==='were'?[9.5,8.5,13.5,13]:[8.5,7.5,11.5,10.5];
+  const ramp=style==='wolf'||style==='were'||style==='boxer'||style==='lean'||style==='vic'?pal.skin:pal.top,girl=style==='girl',T=[0,.3,.72,1],R=style==='vic'?[8.4,7.8,12.4,11.6]:style==='maxw'?[7.6,6.6,10.4,9.6]:style==='ninja'?[7.4,6.4,10.2,9.4]:style==='girl'?[8.6,6,8.8,8]:style==='lean'?[7,6,9.4,9]:style==='boxer'?[17,20,19,15]:style==='were'?[9.5,8.5,13.5,13]:[8.5,7.5,11.5,10.5];
   const st=(t,k)=>({x:H.x+(N.x-H.x)*t+pf.x*k,y:H.y+(N.y-H.y)*t+pf.y*k});
   const band=(k0,k1)=>{const A=[],B=[];for(let i=0;i<4;i++){A.push(st(T[i],R[i]*k1));B.push(st(T[i],R[i]*k0));}return A.concat(B.reverse());};
   poly(g,band(-1,1),ramp[1]);
@@ -1274,8 +1274,10 @@ function torsoDraw(g,H,N,u,pf,pal,style,ld){
     ell(g,c.x+pf.x*7,c.y,21,17,OL);ell(g,c.x+pf.x*6,c.y,20,16,sk2[1]);ell(g,c.x+pf.x*3,c.y+5,17,10,sk2[2]);ell(g,c2.x+pf.x*3,c2.y-4,8,6,sk2[0]);rr(g,c2.x-pf.x*2,c2.y+2,2,2,sk2[3]);
     const u1=st(.1,-8),u2=st(.12,20);pline(g,u1.x,u1.y,u2.x,u2.y,2,sk2[3]);
     const m1=st(.7,2),m2=st(.66,11);pline(g,m1.x,m1.y,m2.x,m2.y,2,sk2[3]);const m3=st(.68,-6);pline(g,m1.x,m1.y,m3.x,m3.y,2,sk2[3]);}
-  if(style==='vic'){const c=st(.32,6);ell(g,c.x+pf.x*5,c.y,14,12,OL);ell(g,c.x+pf.x*4,c.y,13,11,sk[1]);ell(g,c.x+pf.x*2,c.y+4,11,6,sk[2]);ell(g,c.x+pf.x*7,c.y-4,4,3,sk[0]);rr(g,c.x+pf.x*3,c.y+1,2,2,sk[3]);
-    const m1=st(.74,2),m2=st(.7,10);pline(g,m1.x,m1.y,m2.x,m2.y,2,sk[2]);}
+  if(style==='vic'){const L=(a,b,c,w=2)=>pline(g,a.x,a.y,b.x,b.y,w,c);
+    L(st(.7,1),st(.74,11),sk[3]);{const p=st(.86,6);ell(g,p.x,p.y,5,3,sk[0]);}
+    L(st(.2,2.4),st(.62,2.4),sk[3]);for(const t of [.28,.4,.52])L(st(t,3),st(t,8),sk[3]);
+    L(st(.3,9),st(.62,10.4),sk[2]);}
   if(style==='were'){for(let t=.35;t<1.05;t+=.12){const a=st(t,-R[2]),b2=st(t-.08,-R[2]-4);poly(g,[a,b2,st(t-.1,-R[2]+1)],ramp[2]);}
     for(let t=.5;t<.95;t+=.1){const a=st(t,3),b2=st(t-.06,7);pline(g,a.x,a.y,b2.x,b2.y,1,ramp[2]);}}
   if(style==='pappas'){poly(g,[st(1.15,7.2),st(.62,3),st(1.15,-1.5)],sk[1]);poly(g,[st(1.15,1.5),st(.66,2.8),st(1.15,-1.5)],sk[2]);
