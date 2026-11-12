@@ -469,7 +469,7 @@ const FIGHTERS={
       belt:['#a8784a','#7a4e28','#4e3016','#2a1a0a'],acc:'#ff8a3a',hair:['#9a6a3a','#6a4222','#442810','#221406'],wrap:['#ffe2cc','#f2bf9c','#d09272','#8e5a42'],boot:['#6a5a4a','#3a3028','#221c16','#0a0806'],eye:'#3a2a1a',glasses:1}}),
   gt:mkF({name:'GREEN THUMB',dlc:'pack1',acc:'#5ad83a',vs:'#0a2a0a',st:{spd:9,atk:7,hp:2},style:'gthumb',look:'ninja',grabAs:'wolf',moves:{sp:'SHOVEL',ult:'ROOTED'},body:{th:.97,sh:.97,to:.95,ua:.95,fa:.95,hs:.94,hw:23},
     pal:{skin:['#ffe8da','#f4c6a6','#d0927a','#8e5a48'],top:['#6ad84a','#3a9a2a','#1e5a18','#0a2a08'],pants:['#4a4a52','#222228','#121216','#000000'],legW:.8,armW:.8,
-      belt:['#3a3a42','#18181e','#0c0c10','#000000'],acc:'#18181e',hair:['#ffaa5a','#f07a2a','#b44a14','#5a2008'],wrap:['#3a3a42','#18181e','#0c0c10','#000000'],boot:['#3a9a2a','#1e5a18','#0a2a08','#000000'],noband:1}}),
+      belt:['#3a3a42','#18181e','#0c0c10','#000000'],acc:'#3ac83a',band:['#5ad83a','#2a8a22'],bandHi:'#aaff8a',hair:['#ffaa5a','#f07a2a','#b44a14','#5a2008'],wrap:['#3a3a42','#18181e','#0c0c10','#000000'],boot:['#3a9a2a','#1e5a18','#0a2a08','#000000']}}),
   mx:mkF({name:'MAX',dlc:'pack1',acc:'#3a8aff',vs:'#0a1a3a',st:{spd:5,atk:9,hp:5},style:'maxx',look:'maxw',grabAs:'wolf',moves:{sp:'GOLF CART',ult:'WILD CARD'},body:{th:1.14,sh:1.16,to:1.07,ua:1.1,fa:1.1,hs:1.1},
     pal:{skin:['#ffe6d4','#f2c4a0','#c98c64','#8a5838'],top:['#ffffff','#e8ecf4','#c8ccd8','#8a8e9e'],pants:['#4a4a54','#222228','#121216','#000000'],sleeve:1,legW:.82,armW:.88,
       belt:['#4a4a54','#222228','#121216','#000000'],acc:'#2a7aff',hair:['#fff2a0','#f0d060','#c8a030','#7a5a10'],wrap:['#ffe6d4','#f2c4a0','#c98c64','#8a5838'],boot:['#4a4a54','#222228','#121216','#000000'],eye:'#2a5aa8',band:['#5aa8ff','#2a7aff','#1a4ab0']}}),
@@ -1360,7 +1360,7 @@ function headDraw(g,C,up,fr,pal,style){
     poly(g,arc(PI*.22,PI*1.18,7,A(PI*.8,2.5)),Hr[1]);
     {const p=arc(PI*.25,PI*1.15,6.6,A(PI*.8,3));for(let i=1;i<p.length;i+=2)rr(g,p[i].x,p[i].y,1,1,SK[2]);}
     if(!pal.noband){const b0=A(PI*.14,7.1),b1=A(PI*.92,7.2);pline(g,b0.x,b0.y,b1.x,b1.y,3,OL);pline(g,b0.x,b0.y,b1.x,b1.y,2,pal.acc);
-    {const a=A(PI*.2,7),b=A(PI*.5,7.3);pline(g,a.x,a.y,b.x,b.y,1,'#ff8a8a');}}
+    {const a=A(PI*.2,7),b=A(PI*.5,7.3);pline(g,a.x,a.y,b.x,b.y,1,pal.bandHi||'#ff8a8a');}}
     else{poly(g,arc(PI*.2,PI*1.2,7.6,A(PI*.78,1.6)),Hr[1]);poly(g,[A(PI*.18,7.4),A(PI*.08,5.6),A(PI*.32,6)],Hr[1]);{const a=A(PI*.3,7.2),b=A(PI*.55,7.6);pline(g,a.x,a.y,b.x,b.y,1,Hr[0]);}}
   } else if(style==='vic'||style==='maxw'){
     poly(g,arc(PI*.2,PI*1.22,7.5,A(PI*.75,1.6)),Hr[1]);poly(g,arc(PI*.72,PI*1.22,7.5,A(PI*.75,1.6)),Hr[2]);
